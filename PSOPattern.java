@@ -2,7 +2,7 @@ public class PSOPattern{
 	// Set the TARGET
 	private static String TARGET = "Dublin";
 	// Set the maximum number of generations for main loop
-	private static int MAX_GENERATIONS = 5000;
+	private static int MAX_GENERATIONS = 100;
 	// Set the number of particles in our swarm
 	private static int SWARM_SIZE = 10;
 	// Set the default fitness function
@@ -35,6 +35,7 @@ public class PSOPattern{
          }  
   	} 
 	private static void arguments(String[] args){
+		System.out.println("Num arguments " + args.length);
 		switch(args.length){
 			case 0:
 				// Take the default arguments
@@ -43,14 +44,17 @@ public class PSOPattern{
 			case 1:
 				// TARGET String
 				TARGET = args[0];
+				if (TARGET.equals("")){System.out.println("You must supply a TARGET string.");System.exit(0);}
 				break;
 			case 2:
 				TARGET = args[0];
+				if (TARGET.equals("")){System.out.println("You must supply a TARGET string.");System.exit(0);}
 				MAX_GENERATIONS = Integer.parseInt(args[1]);
 				if (MAX_GENERATIONS < 1){System.out.println("Error: Max generations size must be > 0");System.exit(0);}
 				break;
 			case 3:
 				TARGET = args[0];
+				if (TARGET.equals("")){System.out.println("You must supply a TARGET string.");System.exit(0);}
 				MAX_GENERATIONS = Integer.parseInt(args[1]);
 				SWARM_SIZE = Integer.parseInt(args[2]);
 				if (MAX_GENERATIONS < 1){System.out.println("Error: Max generations size must be > 0");System.exit(0);}
@@ -58,16 +62,28 @@ public class PSOPattern{
 				break;
 			case 4:
 				TARGET = args[0];
+				if (TARGET.equals("")){System.out.println("You must supply a TARGET string.");System.exit(0);}
 				MAX_GENERATIONS = Integer.parseInt(args[1]);
 				SWARM_SIZE = Integer.parseInt(args[2]);
 				FITNESS_FUNC = args[3];
-				System.out.println("args[3] = " + FITNESS_FUNC);
 				if (MAX_GENERATIONS < 1){System.out.println("Error: Max generations size must be > 0");System.exit(0);}
 				if (SWARM_SIZE < 10){System.out.println("Error: Swarm size must be > 10");System.exit(0);}
 				if (!(FITNESS_FUNC.equals("LEV") || FITNESS_FUNC.equals("ORD"))){System.out.println("Error: Fitness function must be LEV or ORD");System.exit(0);}
+				break;
+			case 5:
+				TARGET = args[0];
+				if (TARGET.equals("")){System.out.println("You must supply a TARGET string.");System.exit(0);}
+				MAX_GENERATIONS = Integer.parseInt(args[1]);
+				SWARM_SIZE = Integer.parseInt(args[2]);
+				FITNESS_FUNC = args[3];
+				if (MAX_GENERATIONS < 1){System.out.println("Error: Max generations size must be > 0");System.exit(0);}
+				if (SWARM_SIZE < 10){System.out.println("Error: Swarm size must be > 10");System.exit(0);}
+				if (!(FITNESS_FUNC.equals("LEV") || FITNESS_FUNC.equals("ORD"))){System.out.println("Error: Fitness function must be LEV or ORD");System.exit(0);}
+				GBEST_INFLUENCE = Double.parseDouble(args[4]);
+				if (GBEST_INFLUENCE < 0 || GBEST_INFLUENCE > 1){System.out.println("Error: GBEST_INFLUENCE must be between 0-1");System.exit(0);}
 				break;			
 		}
-		
+		System.out.printf("Arguments Target: %s MAX_GENERATIONS: %d SWARM_SIZE: %d FITNESS_FUNC: %s GBEST_INFLUENCE: %f", TARGET, MAX_GENERATIONS, SWARM_SIZE, FITNESS_FUNC, GBEST_INFLUENCE);
 	}
 	public static void main(String[] args)
 	{
